@@ -26,23 +26,8 @@ const emptyPuzzle = [
 	[EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE]
 ];
 
-// Makes several attempts to generate a solveable puzzle.
-function generatePuzzle(percentageFilled) {
-	const MAX_ATTEMPTS = 25;
-
-	let puzzle;
-	let attempts = 0;
-	
-	do {
-		puzzle = generatePuzzleAttempt(percentageFilled);
-		attempts++;
-	} while (puzzle == null && attempts < MAX_ATTEMPTS);
-	
-	return puzzle;
-}
-
 // An individual attempt to generate a solveable puzzle.
-function generatePuzzleAttempt(percentageFilled) {
+function generatePuzzle(percentageFilled) {
 	if(percentageFilled < 0 || percentageFilled > 100) {
 		return null;
 	}
@@ -54,35 +39,8 @@ function generatePuzzleAttempt(percentageFilled) {
 	// Start with a copy of the empty puzzle.
 	let puzzle = copyPuzzle(emptyPuzzle);
 	
-	// Start by seeding random values in the empty puzzle
-	let retryAttempts = 0;
-	let seededCells = 0;
-	const MAX_SEED_ATTEMPTS = 5;
-	const MAX_SEEDED_CELLS = 8;
-	let first = true;
-	while(retryAttempts < MAX_SEED_ATTEMPTS && seededCells < MAX_SEEDED_CELLS) {
-		let coords = first ? {x: 0, y: 0} : randomCoords();
-		first = false;
-		
-		if(puzzle[coords.x][coords.y] != EMPTY_VALUE) {
-			retryAttempts++;
-			continue;
-		}
-		
-		let value = randomValueForCoordinates(puzzle, coords);
-		
-		if(value == null) {
-			// We have created an unsolveable puzzle.
-			return null;
-		}
-		
-		puzzle[coords.x][coords.y] = value;
-		seededCells++;
-		retryAttempts = 0;
-	}
-	
 	// Next, attempt to solve the puzzle.
-	puzzle = solve(puzzle);
+	puzzle = solve(puzzle, true);
 	
 	// If the puzzle isn't solveable then this attempt failed.
 	if(puzzle == null) {
@@ -153,6 +111,17 @@ function valuesForCoords(p, coords) {
 	return values;
 }
 
+// Shuffles an array.
+function shuffleArray(arr) {
+	let newArr = [];
+	
+	while(arr.length > 0) {
+		newArr.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
+	}
+	
+	return newArr;
+}
+
 // Determines if a value is valid for a specific coordinate.
 function canValueGoHere(p, coords, value) {
 	let copy = copyPuzzle(p);
@@ -173,7 +142,7 @@ function canValueGoHere(p, coords, value) {
 }
 
 // Solve a puzzle
-function solve(p) {
+function solve(p, shuffle = false) {
 	if(!validPuzzleState(p)) {
 		return null;
 	}
@@ -190,11 +159,15 @@ function solve(p) {
 	
 	let validValues = valuesForCoords(p, emptyCoords);
 	
+	if (shuffle) {
+		validValues = shuffleArray(validValues);
+	}
+	
 	for(let i = 0; i < validValues.length; i++) {
 		let attempt = copyPuzzle(p);
 		attempt[emptyCoords.x][emptyCoords.y] = validValues[i];
 		
-		let result = solve(attempt);
+		let result = solve(attempt, shuffle);
 		
 		if(result != null) {
 			return result;
