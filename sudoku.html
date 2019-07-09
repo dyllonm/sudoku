@@ -72,9 +72,12 @@
 				}
 				
 				var puzzle = generatePuzzle(45);
-				puzzleToBoard(puzzle);
-				bakeBoard();
-				cellChanged(null);
+				if(puzzle != null)
+				{
+					puzzleToBoard(puzzle);
+					bakeBoard();
+					cellChanged(null);
+				}
 			}
 			
 			function bakeBoard() {
