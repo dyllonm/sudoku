@@ -90,16 +90,16 @@ function generatePuzzleAttempt(percentageFilled) {
 	}
 	
 	// Next, remove some values from the solved puzzle.
-	// TODO: Find a way to remove more values than what is actually getting removed here.
 	let removed = 0;
 	let notFoundCount = 0;
 	const MAX_FIND_ATTEMPTS = 20;
 	while (removed < emptyBoxes && notFoundCount < MAX_FIND_ATTEMPTS) {
 		let coords = randomCoords();
 		
-		// Don't remove this value if there is another valid number in this space.
-		// This makes it so that the player doesn't have to guess.
-		if(otherValidSolution(puzzle, coords)) {
+		// Don't remove this value if there are more than 2 other valid numbers in this space.
+		// This makes it so that the player doesn't have to guess (too much).
+		const MAX_POSSIBLE_VALUES = 2;
+		if(valuesForCoords.length > MAX_POSSIBLE_VALUES){
 			notFoundCount++;
 			continue;
 		}
