@@ -139,7 +139,7 @@
 			function cellChanged(cell) {
 				var puzzle = boardToPuzzle();
 				
-				if(validPuzzleState(puzzle)) {
+				if(solve(puzzle) != null) {
 					$(".InvalidCell").removeClass("InvalidCell");
 				}
 				else {
