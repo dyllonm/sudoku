@@ -4,10 +4,10 @@ const moduleRoutes = require('./moduleRoutes.js');
 const pageRoutes = require('./pageRoutes.js');
 const scriptRoutes = require('./scriptRoutes.js');
 
-module.exports = function(app) {
-    apiRoutes(app);
-    contentRoutes(app);
-    moduleRoutes(app);
-    pageRoutes(app);
-    scriptRoutes(app);
+module.exports.setup = function(app) {
+    apiRoutes.setup(app);
+    contentRoutes.setup(app);
+    moduleRoutes.setup(app);
+    pageRoutes.setup(app);
+    scriptRoutes.setup(app);
 };
