@@ -127,11 +127,11 @@ function canValueGoHere(p, coords, value) {
 	let copy = copyPuzzle(p);
 	copy[coords.x][coords.y] = value;
 	
-	if(!checkCol(copy, coords.x)) {
+	if(!checkCol(copy, coords.y)) {
 		return false;
 	}
 	
-	if(!checkRow(copy, coords.y)) {
+	if(!checkRow(copy, coords.x)) {
 		return false;
 	}
 	
