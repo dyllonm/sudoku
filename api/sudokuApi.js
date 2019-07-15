@@ -18,11 +18,11 @@ module.exports.GenerateNewPuzzle = (req, res) => {
 module.exports.CheckPuzzle = (req, res) => {
     let puzzlePost = req.body;
     let puzzle = new Sudoku(puzzlePost);
-    res.send(puzzle.validPuzzleState());
+    res.send(puzzle.solved());
 }
 
 module.exports.SolvePuzzle = (req, res) => {
     let puzzlePost = req.body;
     let puzzle = new Sudoku(puzzlePost);
-    res.send(puzzle.solve());
+    res.send(puzzle.solve().board);
 }
