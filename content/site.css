@@ -1,0 +1,53 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.SudokuCell {
+    margin: 0px;
+    width: 48px;
+    height: 48px;
+    font-size: 32px;
+    text-align: center;
+}
+
+#SudokuBoard {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#SudokuBoard, .SudokuRow, .SudokuRow td {
+    padding: 0;
+    border:0;
+}
+
+.SudokuRow td:nth-child(3),
+.SudokuRow td:nth-child(6)
+{
+    border-right: 1px solid black;
+}
+
+.SudokuRow:nth-child(3),
+.SudokuRow:nth-child(6)
+{
+    border-bottom: 1px solid black;
+}
+
+.InvalidCell {
+    color: red;
+    border-color: red;
+}
+
+button {
+    background: none;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin: 5px;
+    font-size: 24px;
+}
+
+#solvedLabel {
+    color: green;
+}
