@@ -7,6 +7,7 @@ var EMPTY_VALUE = 0;
 // The default percentage of cells that are filled when a new game is generated.
 var DEFAULT_FILLED_PERCENTAGE = 45;
 
+// Generate a random puzzle and setup the game board.
 function buildBoard() {
     $("#SudokuBoard").empty();
 
@@ -28,6 +29,7 @@ function buildBoard() {
     });
 }
 
+// Bake any non-empty values into the game board.
 function bakeBoard() {
     $(".SudokuCell").each(function(index, obj) {
     var cell = $(obj);
@@ -38,6 +40,7 @@ function bakeBoard() {
     });				
 }
 
+// Check if the puzzle is solved.
 function checkBoard() {
     var puzzle = boardToPuzzle();
     
@@ -50,6 +53,7 @@ function checkBoard() {
     });
 }
 
+// Solve the board.
 function solveBoard() {
     var currentPuzzle = boardToPuzzle();
 
@@ -62,6 +66,7 @@ function solveBoard() {
     });
 }
 
+// Set the contents of the board based on the provided puzzle array.
 function puzzleToBoard(p) {
     for(var x = 0; x < PUZZLE_SIZE; x++) {
         for (y = 0; y < PUZZLE_SIZE; y++) {
@@ -75,6 +80,7 @@ function puzzleToBoard(p) {
     }
 }
 
+// Generate an empty puzzle array.
 function generateEmptyPuzzle() {
     var puzzle = [];
     for(var x = 0; x < PUZZLE_SIZE; x++) {
@@ -88,6 +94,7 @@ function generateEmptyPuzzle() {
     return puzzle;
 }
 
+// Generate a puzzle array based on the contents of the game board.
 function boardToPuzzle() {
     var puzzle = generateEmptyPuzzle();
 
@@ -102,6 +109,7 @@ function boardToPuzzle() {
     return puzzle;
 }
 
+// Handles the event when a cell is changed.
 function cellChanged(cell) {
     var currentPuzzle = boardToPuzzle();
     
@@ -117,6 +125,7 @@ function cellChanged(cell) {
     });
 }
 
+// Make the REST call to generate a puzzle.
 function generatePuzzle(percentageFull, callback) {
     $.ajax({
         url: '/api/generatePuzzle?percentageFull=' + percentageFull,
@@ -124,6 +133,7 @@ function generatePuzzle(percentageFull, callback) {
     }).done(callback);
 }
 
+// Make the REST call to check if a puzzle is solved.
 function checkPuzzle(puzzle, callback) {
     $.ajax({
         url: '/api/checkPuzzle',
@@ -135,6 +145,7 @@ function checkPuzzle(puzzle, callback) {
     }).done(callback);
 }
 
+// Make the REST call to solve a puzzle.
 function solvePuzzle(puzzle, callback) {
     $.ajax({
         url: '/api/solvePuzzle',
