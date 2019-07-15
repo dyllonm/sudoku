@@ -114,7 +114,7 @@ function cellChanged(cell) {
     var currentPuzzle = boardToPuzzle();
     
     solvePuzzle(currentPuzzle, function(solvedPuzzle) {
-        if(solvedPuzzle != null) {
+        if(solvedPuzzle != null && solvedPuzzle.length == PUZZLE_SIZE) {
             $(".InvalidCell").removeClass("InvalidCell");
         }
         else {
@@ -150,7 +150,6 @@ function solvePuzzle(puzzle, callback) {
     $.ajax({
         url: '/api/solvePuzzle',
         method: 'POST',
-        dataType: 'json',
         contentType: 'application/json',
         processData: false,
         data: JSON.stringify(puzzle)

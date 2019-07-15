@@ -27,5 +27,13 @@ module.exports.CheckPuzzle = (req, res) => {
 module.exports.SolvePuzzle = (req, res) => {
     let puzzlePost = req.body;
     let puzzle = new Sudoku(puzzlePost);
-    res.send(puzzle.solve().board);
+
+    let solvedPuzzle = puzzle.solve();
+    if(solvedPuzzle != null)
+    {
+        res.send(solvedPuzzle.board)
+    }
+    else {
+        res.send(null);
+    }
 }
