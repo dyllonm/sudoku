@@ -1,33 +1,13 @@
-// The size (both height and width) of a puzzle.
-const PUZZLE_SIZE = 9;
+const SudokuConstants = require('../constants/sudokuConstants.js');
 
-// The size (both height and width) of a box within a puzzle.
-const BOX_SIZE = 3;
-
-// The number of boxes in either the x or y direction within a puzzle.
-const BOX_COUNT = 3;
-
-// The value which represents an empty cell in a puzzle.
-const EMPTY_VALUE = 0;
-
-// The minimum value in a puzzle.
-const MIN_VALUE = 1;
-
-// The maximum value in a puzzle.
-const MAX_VALUE = 9;
-
-// A basic empty puzzle board.
-const emptyPuzzle = [
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE],
-    [EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE, EMPTY_VALUE]
-];
+// Use shared constants.
+const PUZZLE_SIZE = SudokuConstants.PUZZLE_SIZE;
+const BOX_SIZE = SudokuConstants.BOX_SIZE;
+const BOX_COUNT = SudokuConstants.BOX_COUNT;
+const EMPTY_VALUE = SudokuConstants.EMPTY_VALUE;
+const MIN_VALUE = SudokuConstants.MIN_VALUE;
+const MAX_VALUE = SudokuConstants.MAX_VALUE;
+const EMPTY_PUZZLE = SudokuConstants.EMPTY_PUZZLE;;
 
 // Makes a copy of a puzzle board
 function copyBoard(board) {
@@ -64,18 +44,10 @@ function shuffleArray(arr) {
 }
 
 
-// Gets a random coordinate within the game board.
-function randomCoords() {
-    return {
-        x: Math.floor(Math.random() * (PUZZLE_SIZE - 0.1)),
-        y: Math.floor(Math.random() * (PUZZLE_SIZE - 0.1))
-    };
-}
-
 // The sudoku puzzle class.
 class Sudoku {
     // Constructs a sudoku puzzle as a copy of the provided puzzle
-    constructor(puzzle = emptyPuzzle) {
+    constructor(puzzle = EMPTY_PUZZLE) {
         this.board = copyBoard(puzzle);
     }
 

@@ -1,5 +1,4 @@
-const Sudoku = require('./api/sudoku.js');
+const SudokuGenerator = require('./api/SudokuGenerator.js');
 
-let puzzle = new Sudoku();
-puzzle = puzzle.generatePuzzle(45);
+let puzzle = SudokuGenerator(45);
 console.log(puzzle);
